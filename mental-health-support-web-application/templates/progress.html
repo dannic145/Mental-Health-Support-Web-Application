@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Progress 🌟</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background: linear-gradient(15deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .progress-container {
+            max-width: 1200px;
+            margin: 4rem auto 2rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        nav {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 1rem 2rem;
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(79, 209, 197, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            background: rgba(79, 209, 197, 0.1);
+            color: #4FD1C5;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background: rgba(79, 209, 197, 0.2);
+            border-color: rgba(79, 209, 197, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .logo span {
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, #4FD1C5, #667EEA);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            height: 300px;
+            width: 100%;
+            position: relative;
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        /* Progress Cards */
+        .progress-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 16px;
+            padding: 1.75rem;
+            border: 1px solid rgba(79, 209, 197, 0.15);
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .progress-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .progress-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1.25rem;
+            color: #4FD1C5;
+            font-weight: 600;
+            letter-spacing: -0.25px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Progress Bars */
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #4FD1C5, #667EEA);
+            height: 100%;
+            transition: width 0.8s ease-in-out;
+        }
+
+        /* Metrics Styling */
+        .metric-value {
+            color: #4FD1C5;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        .theme-tag {
+            background: rgba(79, 209, 197, 0.12);
+            color: #4FD1C5;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(79, 209, 197, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .theme-tag:hover {
+            background: rgba(79, 209, 197, 0.2);
+            transform: scale(1.05);
+        }
+
+        .empty-state {
+            color: #94a3b8;
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo" style="display: flex; align-items: center; gap: 1rem;">
+            <span>🌱 Progress Tracker</span>
+            <div style="display: flex; gap: 1rem; align-items: center; width: 100%; justify-content: space-between;">
+                <div class="nav-links">
+                    <a href="{{ url_for('dashboard') }}">← Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="progress-container">
+        <!-- Mood Chart -->
+        <div class="progress-card" style="grid-column: span 2;">
+            <h2>📈 Mood Timeline</h2>
+            <div class="chart-container">
+                <canvas id="moodHistoryChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Goal Progress -->
+        <div class="progress-card">
+            <h2>🎯 Goal Progress</h2>
+            <div class="progress-metric">
+                {% for goal in goals %}
+                <div style="margin: 1.25rem 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                        <span>{{ goal.title }}</span>
+                        <small style="color: #4FD1C5;">{{ goal.progress }}%</small>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ goal.progress }}%"></div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="empty-state">No active goals 📭</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Journal Insights -->
+        <div class="progress-card">
+            <h2>✍️ Writing Insights</h2>
+            <div class="progress-metric">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div>
+                        <div style="font-size: 0.95rem; color: #94a3b8;">Total Entries</div>
+                        <div class="metric-value">{{ journal_count }}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.95rem; color: #94a3b8;">Most Active Day</div>
+                        <div class="metric-value">{{ most_active_day }}</div>
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size: 0.95rem; color: #94a3b8; margin-bottom: 1rem;">Common Themes</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                        {% for theme in common_themes %}
+                        <div class="theme-tag">
+                            {{ theme }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+               // Compact Chart Configuration
+               const moodCtx = document.getElementById('moodHistoryChart').getContext('2d');
+        new Chart(moodCtx, {
+            type: 'line',
+            data: {
+                labels: {{ mood_dates|tojson }},
+                datasets: [{
+                    data: {{ mood_levels|tojson }},
+                    borderColor: '#4FD1C5',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: false,
+                    pointRadius: 3,
+                    pointBackgroundColor: '#4FD1C5'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#0F172A',
+                        borderColor: '#4FD1C5',
+                        borderWidth: 1,
+                        bodyColor: '#F8FAFC',
+                        titleColor: '#94A3B8'
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 1,
+                        max: 10,
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { 
+                            color: '#94A3B8',
+                            stepSize: 1
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { 
+                            color: '#94A3B8',
+                            maxRotation: 0,
+                            autoSkip: true
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

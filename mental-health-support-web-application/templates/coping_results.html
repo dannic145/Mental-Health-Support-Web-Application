@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful Strategies | Coping Mechanisms</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4FD1C5;
+            --secondary: #667EEA;
+            --background: #0F172A;
+            --surface: #1E293B;
+            --text: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --accent: rgba(79, 209, 197, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            margin: 0;
+            padding: 1rem;
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: var(--surface);
+            border-radius: 24px;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 4rem);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+        }
+
+        .content-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: sticky;
+            top: 0;
+            background: linear-gradient(to bottom, var(--surface) 80%, transparent);
+            z-index: 1;
+        }
+
+        .content-scroll {
+            flex: 1;
+            padding: 0 2rem;
+            overflow-y: auto;
+        }
+
+        .content-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            position: sticky;
+            bottom: 0;
+            background: linear-gradient(to top, var(--surface) 80%, transparent);
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            margin: 0;
+            color: var(--text);
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 48px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+            margin: 1rem auto 0;
+        }
+
+        .strategies-content {
+            line-height: 1.7;
+            color: var(--text-secondary);
+            padding: 1.5rem 0;
+            font-size: 1rem;
+        }
+
+        .strategies-content strong {
+            color: var(--text);
+            font-weight: 600;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .strategies-content strong::before {
+            content: '•';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.875rem 1.75rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #38B2AC);
+            color: var(--text);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(79, 209, 197, 0.25);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                margin: 1rem;
+                height: calc(100vh - 2rem);
+                border-radius: 16px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                min-width: auto;
+                width: 100%;
+                padding: 0.875rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-header">
+            <h1>Your Personal Coping Strategies</h1>
+        </div>
+        
+        <div class="content-scroll">
+            <div class="strategies-content">{{ coping_mechanisms }}</div>
+        </div>
+        
+        <div class="content-footer">
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="window.location.href='/coping'">🔄 New Strategies</button>
+                <button class="btn btn-secondary" onclick="window.location.href='/dashboard'">📊 Dashboard</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

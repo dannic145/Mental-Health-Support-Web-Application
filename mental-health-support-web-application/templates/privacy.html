@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔏 Privacy Policy | MindSpace</title>
+    <style>
+        :root {
+            --primary: #4fd1c5;
+            --text: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --surface: rgba(26, 32, 44, 0.8);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #1a202c;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .legal-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+        }
+
+        .legal-content h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .legal-content h2 {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .legal-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .legal-section.emergency {
+            border-color: #ff5252;
+            background: rgba(255, 82, 82, 0.05);
+        }
+
+        .legal-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .legal-section ul {
+            padding-left: 1.5rem;
+            list-style-type: square;
+            color: var(--text-secondary);
+        }
+
+        .warning {
+            color: #ffd700;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 4px;
+        }
+
+        .contact-info {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(79, 209, 197, 0.08);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px dashed currentColor;
+        }
+
+        @media (max-width: 768px) {
+            .legal-container {
+                padding: 1rem;
+                margin: 1rem;
+                border-radius: 16px;
+            }
+            
+            .legal-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="legal-container">
+        <div class="legal-content">
+            <h1>🔏 Privacy Policy</h1>
+            <h2>Effective Date: {{ current_date.strftime('%Y-%m-%d') }}</h2>
+
+            <section class="legal-section">
+                <h3>1. Information We Collect</h3>
+                <p>We collect:</p>
+                <ul>
+                    <li><strong>Account Information:</strong> Username, encrypted password</li>
+                    <li><strong>Health Data:</strong> Mood entries, journal content (stored encrypted)</li>
+                    <li><strong>Technical Data:</strong> IP addresses, device information</li>
+                </ul>
+            </section>
+
+            <section class="legal-section">
+                <h3>2. Data Security</h3>
+                <p>We implement:</p>
+                <ul>
+                    <li>End-to-end encryption for sensitive data</li>
+                    <li>Regular security audits</li>
+                    <li>Two-factor authentication options</li>
+                    <li>GDPR-compliant data practices</li>
+                </ul>
+            </section>
+
+            <section class="legal-section">
+                <h3>3. Data Usage</h3>
+                <p>Your data helps us:</p>
+                <ul>
+                    <li>Personalize your experience</li>
+                    <li>Improve service quality</li>
+                    <li>Provide crisis resources when needed</li>
+                    <li>Never sold to third parties</li>
+                </ul>
+                <p class="warning">⚠️ <strong>We never</strong> sell or share your personal health data.</p>
+            </section>
+
+            <section class="legal-section emergency">
+                <h3>4. Your Rights</h3>
+                <ul>
+                    <li>Access your personal data</li>
+                    <li>Request data deletion</li>
+                    <li>Export your information</li>
+                    <li>Opt-out of data collection</li>
+                </ul>
+                <p>To exercise these rights, contact our Data Protection Officer.</p>
+            </section>
+
+            <section class="legal-section">
+                <h3>5. Cookies & Tracking</h3>
+                <p>We use:</p>
+                <ul>
+                    <li>Essential cookies for functionality</li>
+                    <li>Analytics cookies (opt-out available)</li>
+                    <li>No third-party advertising trackers</li>
+                </ul>
+            </section>
+
+            <div class="contact-info">
+                <p>Data Protection Officer: <a href="mailto:dpo@mindspace.com">dpo@mindspace.com</a></p>
+                <p>Response time: 72 business hours</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

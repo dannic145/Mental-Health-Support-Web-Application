@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📜 Terms of Service | MindSpace</title>
+    <style>
+        :root {
+            --primary: #4fd1c5;
+            --text: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --surface: rgba(26, 32, 44, 0.8);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #1a202c;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .legal-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+        }
+
+        .legal-content h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .legal-content h2 {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .legal-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .legal-section.emergency {
+            border-color: #ff5252;
+            background: rgba(255, 82, 82, 0.05);
+        }
+
+        .legal-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .legal-section ul {
+            padding-left: 1.5rem;
+            list-style-type: square;
+            color: var(--text-secondary);
+        }
+
+        .warning {
+            color: #ffd700;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 4px;
+        }
+
+        .contact-info {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(79, 209, 197, 0.08);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px dashed currentColor;
+        }
+
+        @media (max-width: 768px) {
+            .legal-container {
+                padding: 1rem;
+                margin: 1rem;
+                border-radius: 16px;
+            }
+            
+            .legal-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="legal-container">
+        <div class="legal-content">
+            <h1>📜 Terms of Service</h1>
+            <h2>Last Updated: {{ current_date.strftime('%Y-%m-%d') }}</h2>
+
+            <section class="legal-section">
+                <h3>1. Acceptance of Terms</h3>
+                <p>By accessing or using MindSpace ("the Service"), you agree to be bound by these Terms of Service...</p>
+            </section>
+
+            <section class="legal-section">
+                <h3>2. Service Description</h3>
+                <p>MindSpace provides mental health support resources including:</p>
+                <ul>
+                    <li>Mood tracking tools</li>
+                    <li>Educational resources</li>
+                    <li>Community support features</li>
+                    <li>Self-help exercises</li>
+                </ul>
+                <p class="warning">⚠️ <strong>Not a substitute</strong> for professional medical advice, diagnosis, or treatment.</p>
+            </section>
+
+            <section class="legal-section">
+                <h3>3. User Responsibilities</h3>
+                <ul>
+                    <li>You must be at least 16 years old to use this service</li>
+                    <li>Maintain accurate account information</li>
+                    <li>Do not share login credentials</li>
+                    <li>Report any security breaches immediately</li>
+                </ul>
+            </section>
+
+            <section class="legal-section emergency">
+                <h3>4. Emergency Disclaimer</h3>
+                <p>🆘 In case of emergency:</p>
+                <ul>
+                    <li>Contact local emergency services: 112</li>
+                    <li>National Suicide Prevention Helpline India: 9152987821</li>
+                    <li>Crisis Text Line India: Text "HELLO" to 741741</li>
+                </ul>
+            </section>
+
+            <section class="legal-section">
+                <h3>5. Limitation of Liability</h3>
+                <p>MindSpace shall not be liable for:</p>
+                <ul>
+                    <li>Any decisions made based on Service content</li>
+                    <li>Interruptions in service availability</li>
+                    <li>Unauthorized access to user data</li>
+                </ul>
+            </section>
+
+            <div class="contact-info">
+                <p>Questions? Contact: <a href="mailto:support@mindspace.com">support@mindspace.com</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 About Peace Pal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.7)), 
+                        url('/static/gifs/Samurai Jack Stars GIF by Adult Swim.gif') center/cover fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(12px);
+            max-width: 1000px;
+            width: 90%;
+            margin: 2rem auto;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            color: #ffd700;
+            font-family: 'Roboto', sans-serif;
+            text-shadow: 0 0 15px rgba(255,215,0,0.4);
+        }
+
+        .content-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: #4CAF50;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        h2 i {
+            font-size: 1.5rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+            margin-bottom: 1.2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.08);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .team-member {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 3px solid #ffd700;
+            object-fit: cover;
+        }
+
+        .team-member h3 {
+            color: #ffd700;
+            margin: 0.8rem 0;
+            font-size: 1.3rem;
+        }
+
+        .team-member p {
+            color: #bbb;
+            font-size: 0.95rem;
+        }
+
+        .back-button {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .back-button a {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            gap: 0.5rem;
+        }
+
+        .back-button a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76,175,80,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .overlay {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content-section {
+                padding: 1rem;
+            }
+            
+            .team-member img {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="overlay">
+        <h1>About Peace Pal</h1>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-heart"></i>Our Mission</h2>
+            <p>
+                Welcome to <strong>Peace Pal</strong>, your trusted companion for mental health and well-being. 
+                We provide a safe, judgment-free space with tools and resources to help you thrive through life's challenges.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-tools"></i>What We Offer</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>🌿 Self-Assessment Tools</h3>
+                    <p>Gain insights into your emotional well-being with guided assessments.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🧘 Mindfulness Hub</h3>
+                    <p>Access meditation sessions and breathing techniques to calm your mind.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💡 Coping Strategies</h3>
+                    <p>Personalized recommendations for stress management and resilience building.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-users"></i>Our Team</h2>
+            <div class="team">
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='images/da.jpg') }}" alt="R. Daniel Nicolas">
+                    <h3>R. Daniel Nicolas</h3>
+                    <p>2111CS040025</p>
+                </div>
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='images/aa.jpeg') }}" alt="Malipatel. Abhishek">
+                    <h3>Malipatel. Abhishek</h3>
+                    <p>2111CS040003</p>
+                </div>
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='images/ta.jpeg') }}" alt="Abhinay Goud">
+                    <h3>Abhinay Goud</h3>
+                    <p>2111CS040003</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-button">
+            <a href="/dashboard">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+</body>
+</html>

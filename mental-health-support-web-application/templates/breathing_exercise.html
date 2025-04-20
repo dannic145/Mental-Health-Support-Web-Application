@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zen Breath | Breathing Exercise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4FD1C5;
+            --secondary: #667EEA;
+            --accent: #FF6B6B;
+            --background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            --surface: rgba(255, 255, 255, 0.05);
+            --text: #F8FAFC;
+            --text-secondary: #94A3B8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(79,209,197,0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 2.75rem;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin: 1rem auto 0;
+            max-width: 600px;
+        }
+
+        .header-actions {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .exercise-card {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .exercise-steps {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+
+        .exercise-steps li {
+            padding: 1.5rem;
+            margin: 1rem 0;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .exercise-steps li:hover {
+            transform: translateX(8px);
+        }
+
+        .step-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(79, 209, 197, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timer-container {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .timer {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 2rem 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .timer::after {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            left: -10%;
+            top: -10%;
+            animation: pulse 2s infinite;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 180px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #38B2AC);
+            color: var(--text);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(79, 209, 197, 0.25);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Zen Breathing Exercise</h1>
+        <p class="subtitle">4-7-8 technique for deep relaxation and stress relief</p>
+        <div class="header-actions">
+            <button class="btn btn-secondary" onclick="window.location.href='/dashboard'">
+                📊 Dashboard
+            </button>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="exercise-card">
+            <h2>Guided Breathing Pattern</h2>
+            <ul class="exercise-steps">
+                <li>
+                    <div class="step-icon">🌬️</div>
+                    <div>
+                        <h3>Inhale Deeply</h3>
+                        <p>Breathe in through your nose for 4 seconds</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-icon">⏳</div>
+                    <div>
+                        <h3>Hold Breath</h3>
+                        <p>Gently hold your breath for 7 seconds</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-icon">🍃</div>
+                    <div>
+                        <h3>Exhale Slowly</h3>
+                        <p>Release breath through mouth for 8 seconds</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="timer-container">
+                <div id="breathing-timer" class="timer">5:00</div>
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="startBreathingTimer()">
+                        🎵 Start Session
+                    </button>
+                    <button class="btn btn-secondary" onclick="stopBreathingTimer()" id="stop-btn" disabled>
+                        ⏹️ Stop
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2023 Zen Breath. Breathe mindfully, live fully.</p>
+    </footer>
+
+    <audio id="buzzer" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+
+    <script>
+        let interval;
+        let timeLeft = 5 * 60; // 5 minutes in seconds
+
+        function startBreathingTimer() {
+            const timerDisplay = document.getElementById("breathing-timer");
+            const stopBtn = document.getElementById("stop-btn");
+
+            stopBtn.disabled = false;
+            if (timeLeft <= 0) timeLeft = 5 * 60;
+
+            interval = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                timeLeft--;
+
+                if (timeLeft < 0) {
+                    clearInterval(interval);
+                    timerDisplay.textContent = "Session Complete 🎉";
+                    playBuzzer();
+                    stopBtn.disabled = true;
+                }
+            }, 1000);
+        }
+
+        function stopBreathingTimer() {
+            clearInterval(interval);
+            document.getElementById("breathing-timer").textContent = "5:00";
+            document.getElementById("stop-btn").disabled = true;
+            timeLeft = 5 * 60;
+        }
+
+        function playBuzzer() {
+            document.getElementById("buzzer").play();
+        }
+    </script>
+</body>
+</html>

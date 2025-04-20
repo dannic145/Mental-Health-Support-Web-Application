@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peacepal - Mental Grindset</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a2332;
+            --secondary: #4CAF50;
+            --accent: #ff4757;
+            --text: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0d1117;
+            color: var(--text);
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Improved Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background: rgba(25, 35, 45, 0.95);
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .sidebar h2 {
+            color: var(--secondary);
+            margin: 0 0 2rem 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(76,175,80,0.2);
+        }
+
+        .convo-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+
+        .convo-item {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 50px;
+            transition: transform 0.2s ease;
+        }
+
+        .convo-item:hover {
+            background: rgba(76,175,80,0.1);
+            transform: translateX(5px);
+        }
+
+        /* Chat Container Styles */
+        .chat-container {
+            flex: 1;
+            padding: 2rem;
+            background: var(--primary);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: relative;
+        }
+
+        .messages {
+            flex: 1 1 auto;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .message {
+            margin: 0;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            max-width: 60%;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            line-height: 1.6;
+        }
+
+        .sigma-response {
+            align-self: flex-end;
+            background: rgba(76,175,80,0.1);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .message strong {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: var(--secondary);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Enhanced Input Area */
+        .input-container {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        textarea {
+            flex: 1;
+            padding: 1rem;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            resize: none;
+            min-height: 50px;
+            max-height: 150px;
+            line-height: 1.5;
+        }
+
+        textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--secondary);
+        }
+
+        /* Improved Select Dropdown */
+        select {
+            padding: 0.8rem 1.2rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            border-radius: 8px;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234CAF50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.8rem center;
+            background-size: 1rem;
+        }
+
+        button[type="submit"] {
+            padding: 0.8rem 1.5rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        select {
+            padding: 0.8rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button[type="submit"] {
+            padding: 0.8rem 1.5rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button[type="submit"]:hover {
+            background: #45a049;
+            transform: translateY(-1px);
+        }
+
+        .sidebar-button {
+            width: 100%;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .sidebar-button i {
+            font-size: 1.2rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .messages {
+                max-height: 50vh;
+            }
+
+            .message {
+                max-width: 85%;
+            }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: 40vh;
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .chat-container {
+                height: 60vh;
+                padding: 1rem;
+            }
+
+            .message {
+                max-width: 90%;
+                padding: 1rem;
+            }
+
+            .input-container {
+                gap: 0.75rem;
+                padding: 0.8rem;
+            }
+
+            textarea {
+                min-height: 40px;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2><i class="fas fa-archive"></i> Conversation Archives</h2>
+        <div class="convo-list">
+            {% for convo in previous_conversations %}
+            <div class="convo-item" onclick="window.location.href='{{ url_for('peacepal_app.load_conversation', convo_id=convo.id) }}'">
+                <span>{{ convo.title }}</span>
+                <button class="delete-btn" onclick="event.stopPropagation(); window.location.href='{{ url_for('peacepal_app.delete_conversation', convo_id=convo.id) }}'">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="sidebar-buttons">
+            <button class="sidebar-button" onclick="window.location.href='{{ url_for('peacepal_app.new_conversation') }}'">
+                <i class="fas fa-plus"></i> New Conversation
+            </button>
+            <button class="sidebar-button" onclick="window.location.href='{{ url_for('dashboard') }}'">
+                <i class="fas fa-home"></i> Dashboard
+            </button>
+        </div>
+    </div>
+
+    <div class="chat-container">
+        <div class="messages">
+            {% for message in chat_history %}
+            <div class="message {% if message.role == 'assistant' %}sigma-response{% endif %}">
+                <strong>{% if message.role == 'user' %}You{% else %}<i class="fas fa-robot"></i> PEACEPAL{% endif %}</strong>
+                {{ message.content }}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <form method="POST" class="input-container">
+            <textarea name="user_input" placeholder="Share your thoughts..." required></textarea>
+            <select name="language">
+                <option value="en">🇺🇸 English</option>
+                <option value="te">🇮🇳 Telugu</option>
+                <option value="hi">🇮🇳 Hindi</option>
+            </select>
+            <button type="submit">
+                <i class="fas fa-paper-plane"></i> Send
+            </button>
+        </form>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const messagesContainer = document.querySelector('.messages');
+            const textarea = document.querySelector('textarea');
+            const form = document.querySelector('form');
+
+            // Auto-scroll to bottom
+            messagesContainer.scrollTo(0, messagesContainer.scrollHeight);
+
+            // Textarea auto-resize
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+                messagesContainer.scrollTo(0, messagesContainer.scrollHeight);
+            });
+
+            // Form submission handling
+            form.addEventListener('submit', function() {
+                textarea.style.height = '50px';
+                setTimeout(() => {
+                    messagesContainer.scrollTo(0, messagesContainer.scrollHeight);
+                }, 100);
+            });
+
+            // Real-time scroll management
+            new MutationObserver(mutations => {
+                mutations.forEach(() => {
+                    messagesContainer.scrollTo({
+                        top: messagesContainer.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                });
+            }).observe(messagesContainer, { childList: true });
+        }
+    </script>
+</body>
+</html>

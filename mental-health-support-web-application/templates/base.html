@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindSpace - {% block title %}{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+    <style>
+        :root {
+            --primary: #4FD1C5;
+            --secondary: #667EEA;
+            --background: linear-gradient(160deg, #0F172A 0%, #1E293B 100%);
+            --surface: rgba(255, 255, 255, 0.05);
+            --text: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --error: #F87171;
+            --success: #34D399;
+        }
+
+        /* Shared styles here... */
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    {% if 'user_id' in session %}
+    <nav class="main-nav">
+        <a href="/dashboard">🏠 Dashboard</a>
+        <a href="/logout">🔒 Logout</a>
+    </nav>
+    {% endif %}
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert-group">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {% if category == 'success' %}
+                                ✅ {{ message }}
+                            {% else %}
+                                ⚠️ {{ message }}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

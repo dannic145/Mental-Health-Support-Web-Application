@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🔒 Security Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4FD1C5;
+            --background: linear-gradient(160deg, #0F172A 0%, #1E293B 100%);
+            --surface: rgba(255, 255, 255, 0.05);
+            --text: #F8FAFC;
+            --text-secondary: #94A3B8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+        }
+
+        .security-check {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            animation: fadeIn 0.6s ease;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--primary);
+        }
+
+        .verification-message {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .math-problem {
+            font-size: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            color: var(--text);
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 209, 197, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), #38B2AC);
+            border: none;
+            border-radius: 8px;
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(79, 209, 197, 0.25);
+        }
+
+        .errors {
+            background: rgba(255, 82, 82, 0.1);
+            border: 1px solid #ff5252;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #ff5252;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .security-check {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="security-check">
+        <h2>🔒 Security Verification</h2>
+        
+        <p class="verification-message">
+            Please complete this quick security check to ensure you're human
+        </p>
+
+        <form action="{{ url_for('captcha_challenge') }}" method="POST">
+            <div class="math-problem">
+                {{ problem }} = ?
+            </div>
+
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <input type="number" name="answer" required placeholder="Enter solution">
+            
+            <button type="submit">Verify Identity →</button>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="errors">
+                    ⚠️ {% for message in messages %}{{ message }}{% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

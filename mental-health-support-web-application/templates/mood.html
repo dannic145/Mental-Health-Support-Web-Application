@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱 Mood Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+    :root {
+    --primary: #4FD1C5;
+    --secondary: #667EEA;
+    --surface: rgba(255, 255, 255, 0.05);
+    --text: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --background: linear-gradient(160deg, #0F172A 0%, #1E293B 100%);
+    --glass: rgba(255, 255, 255, 0.05);
+}
+
+/* Enhanced Base Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* Animated Gradient Text */
+.gradient-text {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient 5s ease infinite;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Enhanced Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    background: var(--glass);
+    backdrop-filter: blur(16px);
+    position: fixed;
+    width: 97%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--primary);
+    transform: translateY(-1px);
+}
+
+/* Enhanced Mood Container */
+.mood-container {
+    max-width: 800px;
+    margin: 7rem auto 3rem;
+    padding: 0 2rem;
+}
+
+/* Glassmorphic Cards */
+.mood-card {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mood-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+/* Interactive Mood Slider */
+.mood-slider {
+    width: 100%;
+    margin: 2.5rem 0;
+    -webkit-appearance: none;
+    height: 10px;
+    background: linear-gradient(90deg, 
+        #EF4444 0%, 
+        #F59E0B 25%, 
+        #FCD34D 50%, 
+        #4FD1C5 75%, 
+        #667EEA 100%
+    );
+    border-radius: 8px;
+    outline: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.mood-slider:hover {
+    opacity: 1;
+}
+
+.mood-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 28px;
+    height: 28px;
+    background: var(--text);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.mood-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+/* Animated Emoji Scale */
+.mood-emoji-scale {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 0 2rem;
+    font-size: 1.8rem;
+    position: relative;
+}
+
+.mood-emoji-scale span {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.mood-emoji-scale span:hover {
+    transform: scale(1.2) translateY(-5px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Enhanced Textarea */
+textarea {
+    width: 95%;
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--text);
+    resize: vertical;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 209, 197, 0.1);
+}
+
+/* Modern Button Style */
+.btn {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: #0F172A;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(79, 209, 197, 0.2);
+}
+
+/* Enhanced Analysis Card */
+.analysis-content {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-left: 4px solid var(--primary);
+}
+
+/* Mood Chart Container */
+.mood-history-chart {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Flash Messages Animation */
+.flash-messages {
+    position: fixed;
+    top: 90px;
+    right: 25px;
+    z-index: 1000;
+    max-width: 400px;
+}
+
+.flash {
+    padding: 1.2rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: slideIn 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.flash::before {
+    content: '✦';
+    font-size: 1.2rem;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+    </style>
+</head>
+<body>
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <nav>
+        <div class="logo">
+            <span class="gradient-text">🌱</span>
+            <span class="gradient-text">Mood Tracker</span>
+        </div>
+        <div class="nav-links">
+            <a href="{{ url_for('dashboard') }}">← Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="mood-container">
+        <!-- AI Analysis -->
+        {% if analysis %}
+        <div class="mood-card">
+            <h2>✨ AI Insights</h2>
+            <div class="analysis-content">
+                {{ analysis|safe }}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Mood Tracking Form (Fixed Form Structure) -->
+        <div class="mood-card">
+            <h2>How's Your Day? 🌈</h2>
+            <form method="POST" action="{{ url_for('mood_bp.log_mood') }}">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                
+                <div class="mood-emoji-scale">
+                    <span>😢</span>
+                    <span>😞</span>
+                    <span>😐</span>
+                    <span>😊</span>
+                    <span>😄</span>
+                </div>
+                
+                <input type="range" class="mood-slider" name="mood_level" min="1" max="10" value="5">
+                
+                <textarea name="notes" placeholder="Share your thoughts... ✍️" rows="4"></textarea>
+                
+                <button type="submit" class="btn">
+                    📌 Capture Mood
+                </button>
+            </form>
+        </div>
+
+        <!-- Mood History Chart -->
+        <div class="mood-card">
+            <h2>Mood Journey 📆</h2>
+            <div class="mood-history-chart">
+                <canvas id="moodChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Chart Configuration
+        const ctx = document.getElementById('moodChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ mood_dates|tojson }},
+                datasets: [{
+                    label: 'Mood Level',
+                    data: {{ mood_levels|tojson }},
+                    borderColor: '#4FD1C5',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(79, 209, 197, 0.1)',
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#4FD1C5',
+                    pointHoverRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#0F172A',
+                        borderColor: '#4FD1C5',
+                        borderWidth: 1,
+                        bodyColor: '#F8FAFC',
+                        titleColor: '#94A3B8',
+                        padding: 12,
+                        boxPadding: 8
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 1,
+                        max: 10,
+                        ticks: { 
+                            color: '#94A3B8',
+                            callback: function(value) {
+                                return ['😢', '😞', '😐', '😊', '😄'][Math.floor(value/2) - 1] || value;
+                            },
+                            font: { weight: '500' }
+                        },
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                    },
+                    x: { 
+                        ticks: { 
+                            color: '#94A3B8',
+                            maxRotation: 0,
+                            autoSkip: true,
+                            font: { weight: '500' }
+                        },
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                    }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeOutQuart'
+                }
+            }
+        });
+
+        // Emoji Click Handler
+        document.querySelectorAll('.mood-emoji-scale span').forEach((emoji, index) => {
+            emoji.addEventListener('click', () => {
+                const slider = document.querySelector('.mood-slider');
+                const value = (index + 1) * 2; // Map to 2,4,6,8,10
+                slider.value = value;
+                slider.dispatchEvent(new Event('input'));
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Join MindSpace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4FD1C5;
+            --secondary: #667EEA;
+            --background: linear-gradient(160deg, #0F172A 0%, #1E293B 100%);
+            --surface: rgba(255, 255, 255, 0.05);
+            --text: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --weak: #FF5252;
+            --medium: #FFD700;
+            --strong: #4CAF50;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text);
+        }
+
+        .container {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        input {
+            width: 80%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding-left: 2.5rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 209, 197, 0.2);
+        }
+
+        input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), #38B2AC);
+            border: none;
+            border-radius: 8px;
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(79, 209, 197, 0.25);
+        }
+
+        .alternate-action {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .alternate-action a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .alternate-action a:hover {
+            opacity: 0.8;
+        }
+
+        .password-strength {
+            margin: 1rem 0;
+        }
+
+        .strength-meter {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .strength-message {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .strength-weak {
+            color: var(--weak);
+        }
+
+        .strength-medium {
+            color: var(--medium);
+        }
+
+        .strength-strong {
+            color: var(--strong);
+        }
+
+        
+        .legal-disclaimer {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+    
+        .legal-disclaimer a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px dashed currentColor;
+            transition: opacity 0.3s ease;
+        }
+    
+        .legal-disclaimer a:hover {
+            opacity: 0.8;
+        }
+    
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Create Account</h1>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {% if category == 'success' %}
+                            ✅ {{ message }}
+                        {% else %}
+                            ⚠️ {{ message }}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="/signup" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            
+            <div class="form-group">
+                <span class="input-icon">👤</span>
+                <input type="text" 
+                       id="name" 
+                       name="name" 
+                       placeholder="Full name"
+                       required>
+            </div>
+            
+            <div class="form-group">
+                <span class="input-icon">✉️</span>
+                <input type="email" 
+                       id="email" 
+                       name="email" 
+                       placeholder="Email address"
+                       required>
+            </div>
+            
+            <div class="form-group">
+                <span class="input-icon">👾</span>
+                <input type="text" 
+                       id="username" 
+                       name="username" 
+                       placeholder="Username"
+                       required>
+            </div>
+            
+            <div class="form-group">
+                <span class="input-icon">🔒</span>
+                <input type="password" 
+                       id="password" 
+                       name="password" 
+                       placeholder="Password"
+                       required
+                       minlength="8">
+            </div>
+
+            <div class="legal-disclaimer">
+                <p>By creating an account, you agree to our 
+                    <a href="{{ url_for('terms') }}">Terms of Service</a> and 
+                    <a href="{{ url_for('privacy') }}">Privacy Policy</a>.
+                </p>
+            </div>
+
+            <div class="password-strength">
+                <div class="strength-meter">
+                    <div class="strength-bar"></div>
+                </div>
+                <div class="strength-message"></div>
+            </div>
+             
+            <button type="submit">Create Account →</button>
+        </form>
+
+        <div class="alternate-action">
+            Already registered? <a href="/login">Sign in instead</a>
+        </div>
+    </div>
+
+    <script>
+        const passwordInput = document.getElementById('password');
+        const strengthBar = document.querySelector('.strength-bar');
+        const strengthMessage = document.querySelector('.strength-message');
+
+        passwordInput.addEventListener('input', (e) => {
+            const password = e.target.value;
+            const strength = calculatePasswordStrength(password);
+            
+            strengthBar.style.width = strength.percentage + '%';
+            strengthBar.style.backgroundColor = strength.color;
+            strengthMessage.textContent = strength.message;
+            strengthMessage.className = 'strength-message ' + strength.class;
+        });
+
+        function calculatePasswordStrength(password) {
+            const commonPasswords = ['password', '123456', '12345678', 'qwerty', 'abc123'];
+            let score = 0;
+            
+            // Common password check
+            if (commonPasswords.includes(password.toLowerCase())) {
+                return {
+                    percentage: 0,
+                    color: 'var(--weak)',
+                    message: 'Password is too common',
+                    class: 'strength-weak'
+                };
+            }
+
+            // Length score
+            if (password.length >= 12) score += 2;
+            else if (password.length >= 8) score += 1;
+            
+            // Character type score
+            const types = {
+                upper: /[A-Z]/.test(password),
+                lower: /[a-z]/.test(password),
+                number: /\d/.test(password),
+                special: /[^A-Za-z0-9]/.test(password)
+            };
+            const typeCount = Object.values(types).filter(Boolean).length;
+            score += typeCount;
+
+            // Deductions for patterns
+            if (/(.)\1{2,}/.test(password)) score -= 1; // Repeated characters
+            if (/(0123|1234|2345|3456|4567|5678|6789|7890|abcd|bcde|cdef|defg)/.test(password)) score -= 2;
+
+            // Calculate percentage and strength
+            score = Math.max(0, Math.min(score, 6));
+            const percentage = (score / 6) * 100;
+
+            if (percentage < 40) {
+                return {
+                    percentage,
+                    color: 'var(--weak)',
+                    message: 'Weak password - add more complexity',
+                    class: 'strength-weak'
+                };
+            } else if (percentage < 70) {
+                return {
+                    percentage,
+                    color: 'var(--medium)',
+                    message: 'Medium strength - could be stronger',
+                    class: 'strength-medium'
+                };
+            } else {
+                return {
+                    percentage,
+                    color: 'var(--strong)',
+                    message: 'Strong password! Good job!',
+                    class: 'strength-strong'
+                };
+            }
+        }
+    </script>
+</body>
+</html>
