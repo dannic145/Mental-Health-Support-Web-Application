@@ -37,9 +37,9 @@
 # Clone repository
 git clone https://github.com/yourusername/mental-health-support-web-application.git
 
-Install dependencies
+# Install dependencies
 
-configure ur api keys
+# Configure your api keys
 
 # Start application
 python app.py 
